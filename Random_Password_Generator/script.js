@@ -8,12 +8,13 @@ var generateBtn = document.querySelector("#generate");
 // list of a-z "abcdefghijklmnopqrstuvwxyz"
 var alphabetArray = "abcdefghijklmnopqrstuvwxyz".split('');
 var specialArray = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~".split ('');
-var alphabetArrayUpper = ("abcdefghijklmnopqrstuvwxyz".toUpperCase()).split('');
+var alphabetArrayUpper = "abcdefghijklmnopqrstuvwxyz".toUpperCase().split('');
 var numericArray = "0123456789".split('');
 
 // Write password to the #password input
 
 function writePassword() {
+  //this prompts if length is not between 8-128 characters  
   var userChoiceLength = window.prompt("What is the length of the password?");
   if (userChoiceLength < 8 ){
     window.alert("Character length must be more then 8 characters long.");
@@ -26,7 +27,7 @@ function writePassword() {
   var userChoiceUpper = window.confirm("Would you like uppercase letters?");
   var userChoiceNumeric = window.confirm("Would you like numeric characters?");
   var userChoiceSpecial = window.confirm("Would you like special characters?");
-
+  //if user doesn't choose any, this prompts with error message
   if (!userChoiceLower && !userChoiceUpper && !userChoiceNumeric && !userChoiceSpecial){
     window.alert("Password must be contain atleast one of lowercase, uppercase, numeric, or special characters.");
     return;
@@ -39,87 +40,67 @@ function writePassword() {
       var choiceTypesIndex;
       var choiceIndexRandom;
       var choiceTypeFinal;
+      // this is the code to randomize when all the choices are locked in
       function randomizationCode() {
         choiceIndexRandom = math.floor(math.random() * choiceTypes);
         choiceTypeFinal = choiceTypesIndex[choiceIndexRandom];
       }
-      
+      //This is to randomize the character types as the user picks yes or no
       function randomType() {
         if (userChoiceUpper && userChoiceLower && userChoiceNumeric && userChoiceSpecial){
-          choiceTypes = 4;
-          choiceTypesIndex = [alphabetArray,alphabetArrayUpper,numericArray,specialArray];
-          randomizationCode();
+            choiceTypes = 4;
+            choiceTypesIndex = [alphabetArray,alphabetArrayUpper,numericArray,specialArray];
+            randomizationCode();
         } else if (userChoiceUpper && userChoiceLower && userChoiceNumeric && !userChoiceSpecial){
-          choiceTypes = 3;
-          choiceTypesIndex = [alphabetArray,alphabetArrayUpper,numericArray];
-          randomizationCode();
+            choiceTypes = 3;
+            choiceTypesIndex = [alphabetArray,alphabetArrayUpper,numericArray];
+            randomizationCode();
         } else if (userChoiceUpper && userChoiceLower && !userChoiceNumeric && userChoiceSpecial){
-          choiceTypes = 3;
-          choiceTypesIndex = [alphabetArrayUpper,alphabetArray,specialArray];
-          randomizationCode ();
+            choiceTypes = 3;
+            choiceTypesIndex = [alphabetArrayUpper,alphabetArray,specialArray];
+            randomizationCode ();
         } else if (userChoiceUpper && !userChoiceLower && userChoiceNumeric && userChoiceSpecial){
-          choiceTypes = 3;
-          choiceTypesIndex = [alphabetArray,numericArray,specialArray];
-          randomizationCode();
+            choiceTypes = 3;
+            choiceTypesIndex = [alphabetArray,numericArray,specialArray];
+            randomizationCode();
         } else if (userChoiceUpper && userChoiceLower && !userChoiceNumeric && !userChoiceSpecial){
-          choiceTypes = 2;
-          choiceTypesIndex = [alphabetArrayUpper,alphabetArray];
-          randomizationCode();
+            choiceTypes = 2;
+            choiceTypesIndex = [alphabetArrayUpper,alphabetArray];
+            randomizationCode();
         } else if (userChoiceUpper && !userChoiceLower && userChoiceNumeric && !userChoiceSpecial){
-          choiceTypes = 2;
-          choiceTypesIndex = [alphabetArrayUpper,numericArray];
-          randomizationCode();
+            choiceTypes = 2;
+            choiceTypesIndex = [alphabetArrayUpper,numericArray];
+            randomizationCode();
         } else if (userChoiceUpper && !userChoiceLower && !userChoiceNumeric && userChoiceSpecial){
-          choiceTypes = 2;
-          choiceTypesIndex = [alphabetArrayUpper,specialArray];
-          randomizationCode();
+            choiceTypes = 2;
+            choiceTypesIndex = [alphabetArrayUpper,specialArray];
+            randomizationCode();
         } else if (userChoiceUpper && !userChoiceLower && !userChoiceNumeric && !userChoiceSpecial){
-          choiceTypeFinal = alphabetArrayUpper;
-//upper done --> lower
-        } else if (!userChoiceUpper && userChoiceLower && userChoiceNumeric && userChoiceSpecial){
-
-        } else if (userChoiceUpper && userChoiceLower && !userChoiceNumeric && userChoiceSpecial){
-
-        } else if (userChoiceUpper && userChoiceLower && userChoiceNumeric && !userChoiceSpecial){
-
-        } else if (!userChoiceUpper && userChoiceLower && userChoiceNumeric && !userChoiceSpecial){
-
-        } else if (!userChoiceUpper && userChoiceLower && !userChoiceNumeric && userChoiceSpecial){
-
-        } else if (userChoiceUpper && userChoiceLower && !userChoiceNumeric && !userChoiceSpecial){
-
+            choiceTypeFinal = alphabetArrayUpper;
         } else if (!userChoiceUpper && userChoiceLower && !userChoiceNumeric && !userChoiceSpecial){
-//lower done --> numeric
-        } else if (!userChoiceUpper && userChoiceLower && userChoiceNumeric && userChoiceSpecial){
-
-        } else if (userChoiceUpper && !userChoiceLower && userChoiceNumeric && userChoiceSpecial){
-
-        } else if (userChoiceUpper && userChoiceLower && userChoiceNumeric && !userChoiceSpecial){
-
+            choiceTypeFinal = alphabetArray;
         } else if (!userChoiceUpper && userChoiceLower && userChoiceNumeric && !userChoiceSpecial){     
-
-        } else if (!userChoiceUpper && !userChoiceLower && userChoiceNumeric && userChoiceSpecial){  
-          
-        } else if (userChoiceUpper && !userChoiceLower && userChoiceNumeric && !userChoiceSpecial){  
-          
+            choiceTypes = 2;
+            choiceTypesIndex = [alphabetArray,numericArray];
+            randomizationCode();
         } else if (!userChoiceUpper && !userChoiceLower && userChoiceNumeric && !userChoiceSpecial){   
-//numeric done --> special
+            choiceTypeFinal = numericArray;
         } else if (!userChoiceUpper && userChoiceLower && userChoiceNumeric && userChoiceSpecial){    
-
-        } else if (userChoiceUpper && !userChoiceLower && userChoiceNumeric && userChoiceSpecial){  
-          
-        } else if (userChoiceUpper && userChoiceLower && !userChoiceNumeric && userChoiceSpecial){  
-          
+            choiceTypes = 3;
+            choiceTypesIndex = [userChoiceLower,userChoiceNumeric,userChoiceSpecial];
+            randomizationCode();
         } else if (!userChoiceUpper && !userChoiceLower && userChoiceNumeric && userChoiceSpecial){   
-          
+            choiceTypes = 2;
+            choiceTypesIndex = [numericArray,specialArray];
+            randomizationCode();
         } else if (!userChoiceUpper && userChoiceLower && !userChoiceNumeric && userChoiceSpecial){    
-
-        } else if (userChoiceUpper && !userChoiceLower && !userChoiceNumeric && userChoiceSpecial){    
-        
-        } else {
-
+            choiceTypes = 2;
+            choiceTypesIndex = [alphabetArray,specialArray];
+        } else if (!userChoiceUpper && !userChoiceLower && !userChoiceNumeric && userChoiceSpecial){ 
+            choiceTypes = specialArray;
         }     
       }
+
   }     
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
